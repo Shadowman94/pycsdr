@@ -151,6 +151,16 @@ class FmDemod(Module):
         ...
 
 
+class StereoFractionalDecimator(Module):
+    def __init__(self, format: Format, rateMPX: float, decimation: float, tau: float = 50e-6, numPolyPoints: int = 12, prefilter: bool = False):
+        ...
+
+
+class BCFmDemod(Module):
+    def __init__(self):
+        ...
+
+
 class Limit(Module):
     def __init__(self, maxAmplitude: float = 1.0):
         ...

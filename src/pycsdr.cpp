@@ -11,6 +11,7 @@
 #include "shift.hpp"
 #include "squelch.hpp"
 #include "fractionaldecimator.hpp"
+#include "fmstereo.hpp"
 #include "fmdemod.hpp"
 #include "limit.hpp"
 #include "nfmdeemphasis.hpp"
@@ -181,6 +182,18 @@ PyInit_modules(void) {
     if (bases == NULL) return NULL;
     PyObject* FmDemodType = PyType_FromSpecWithBases(&FmDemodSpec, bases);
     if (FmDemodType == NULL) return NULL;
+
+    Py_INCREF(ModuleType);
+    bases = PyTuple_Pack(1, ModuleType);
+    if (bases == NULL) return NULL;
+    PyObject* StereoFractionalDecimatorType = PyType_FromSpecWithBases(&StereoFractionalDecimatorSpec, bases);
+    if (StereoFractionalDecimatorType == NULL) return NULL;
+
+    Py_INCREF(ModuleType);
+    bases = PyTuple_Pack(1, ModuleType);
+    if (bases == NULL) return NULL;
+    PyObject* BCFmDemodType = PyType_FromSpecWithBases(&BCFmDemodSpec, bases);
+    if (BCFmDemodType == NULL) return NULL;
 
     Py_INCREF(ModuleType);
     bases = PyTuple_Pack(1, ModuleType);
@@ -421,7 +434,11 @@ PyInit_modules(void) {
 
     PyModule_AddObject(m, "FractionalDecimator", FractionalDecimatorType);
 
+    PyModule_AddObject(m, "StereoFractionalDecimator", StereoFractionalDecimatorType);
+
     PyModule_AddObject(m, "FmDemod", FmDemodType);
+
+    PyModule_AddObject(m, "BCFmDemod", BCFmDemodType);
 
     PyModule_AddObject(m, "Limit", LimitType);
 
