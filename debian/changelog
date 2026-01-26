@@ -1,3 +1,12 @@
+pycsdr (0.18.37) bullseye jammy; urgency=low
+
+  * Syncing versions with the latest CSDR.
+  * Added stereo FM decoder by Csongor Dobre.
+  * Slowed AGC attack response to avoid clicking.
+  * Removed XZ requirement from packaging.
+
+ -- Marat Fayzullin <luarvique@gmail.com>  Mon, 26 Jan 2025 16:12:00 +0000
+
 pycsdr (0.18.36) bullseye jammy; urgency=low
 
   * Added produceSilence option to SnrSquelch.
