@@ -1,3 +1,12 @@
+pycsdr (0.18.38) bullseye jammy; urgency=low
+
+  * Syncing versions with the latest CSDR.
+  * Multiple improvements to AGC and noise reduction.
+  * Multiple improvements to FAX, SSTV, DSC decoders.
+  * Multiple improvements to CW decoder.
+
+ -- Marat Fayzullin <luarvique@gmail.com>  Mon, 17 Aug 2026 16:12:00 +0000
+
 pycsdr (0.18.37) bullseye jammy; urgency=low
 
   * Syncing versions with the latest CSDR.
