@@ -290,7 +290,7 @@ class SstvDecoder(Module):
         ...
 
 class NoiseFilter(Module):
-    def __init__(self, threshold: float = 0.0, fftSize: int = 1024, wndSize: int = 16, decay: float = 0.1, attack: float = 0.5):
+    def __init__(self, threshold: float = 0.0, fftSize: int = 1024, wndSize: int = 16, decay: float = 0.05, attack: float = 0.2):
         ...
 
     def setThreshold(self, threshold: float) -> None:

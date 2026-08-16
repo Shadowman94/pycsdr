@@ -12,8 +12,8 @@ struct NoiseFilter: Module {
     float threshold = 0.0f;
     uint32_t wndSize = 16;
     uint32_t fftSize = 1024;
-    float attack = 0.5f;
-    float decay = 0.1f;
+    float attack = 0.2f;
+    float decay = 0.05f;
 };
 
 extern PyType_Spec NoiseFilterSpec;

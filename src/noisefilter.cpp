@@ -13,8 +13,8 @@ static int NoiseFilter_init(NoiseFilter* self, PyObject* args, PyObject* kwds) {
     self->threshold = 0.0f;
     self->fftSize = 1024;
     self->wndSize = 16;
-    self->attack  = 0.5f;
-    self->decay   = 0.1f;
+    self->attack  = 0.2f;
+    self->decay   = 0.05f;
     self->noiseFilter = NULL;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwds, "|fIIff", kwlist, &self->threshold, &self->fftSize, &self->wndSize, &self->decay, &self->attack)) {
