@@ -10,18 +10,18 @@ static int NoiseFilter_init(NoiseFilter* self, PyObject* args, PyObject* kwds) {
         (char*)"decay", (char*)"attack", NULL
     };
 
-    self->threshold = 0;
+    self->threshold = 0.0f;
     self->fftSize = 1024;
     self->wndSize = 16;
-    self->attack  = 2;
-    self->decay   = 10;
+    self->attack  = 0.5f;
+    self->decay   = 0.1f;
     self->noiseFilter = NULL;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|iIIII", kwlist, &self->threshold, &self->fftSize, &self->wndSize, &self->decay, &self->attack)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|fIIff", kwlist, &self->threshold, &self->fftSize, &self->wndSize, &self->decay, &self->attack)) {
         return -1;
     }
 
-    self->noiseFilter = new Csdr::AFNoiseFilter(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
     self->setModule(new Csdr::FilterModule<float>(self->noiseFilter));
     self->noiseFilter->setThreshold(self->threshold);
 
@@ -35,7 +35,7 @@ static int NoiseFilter_init(NoiseFilter* self, PyObject* args, PyObject* kwds) {
 static PyObject* NoiseFilter_setThreshold(NoiseFilter* self, PyObject* args, PyObject* kwds) {
     static char* kwlist[] = { (char*)"threshold", NULL };
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "i", kwlist, &self->threshold)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "f", kwlist, &self->threshold)) {
         return NULL;
     }
 
@@ -53,7 +53,7 @@ static PyObject* NoiseFilter_setWndSize(NoiseFilter* self, PyObject* args, PyObj
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::AFNoiseFilter(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
     dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
     self->noiseFilter->setThreshold(self->threshold);
 
@@ -67,7 +67,7 @@ static PyObject* NoiseFilter_setFftSize(NoiseFilter* self, PyObject* args, PyObj
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::AFNoiseFilter(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
     dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
     self->noiseFilter->setThreshold(self->threshold);
 
@@ -77,11 +77,11 @@ static PyObject* NoiseFilter_setFftSize(NoiseFilter* self, PyObject* args, PyObj
 static PyObject* NoiseFilter_setDecay(NoiseFilter* self, PyObject* args, PyObject* kwds) {
     static char* kwlist[] = { (char*)"decay", NULL };
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "I", kwlist, &self->decay)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "f", kwlist, &self->decay)) {
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::AFNoiseFilter(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
     dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
     self->noiseFilter->setThreshold(self->threshold);
 
@@ -91,11 +91,11 @@ static PyObject* NoiseFilter_setDecay(NoiseFilter* self, PyObject* args, PyObjec
 static PyObject* NoiseFilter_setAttack(NoiseFilter* self, PyObject* args, PyObject* kwds) {
     static char* kwlist[] = { (char*)"attack", NULL };
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "I", kwlist, &self->attack)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "f", kwlist, &self->attack)) {
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::AFNoiseFilter(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
     dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
     self->noiseFilter->setThreshold(self->threshold);
 
@@ -106,8 +106,8 @@ static PyMethodDef NoiseFilter_methods[] = {
     { "setThreshold", (PyCFunction) NoiseFilter_setThreshold, METH_VARARGS | METH_KEYWORDS, "set filtering threshold in dB" },
     { "setWndSize", (PyCFunction) NoiseFilter_setWndSize, METH_VARARGS | METH_KEYWORDS, "set window size in buckets" },
     { "setFftSize", (PyCFunction) NoiseFilter_setFftSize, METH_VARARGS | METH_KEYWORDS, "set FFT size in buckets" },
-    { "setAttack", (PyCFunction) NoiseFilter_setAttack, METH_VARARGS | METH_KEYWORDS, "set filter attack rate in FFTs" },
-    { "setDecay", (PyCFunction) NoiseFilter_setDecay, METH_VARARGS | METH_KEYWORDS, "set filter decay rate in FFTs" },
+    { "setAttack", (PyCFunction) NoiseFilter_setAttack, METH_VARARGS | METH_KEYWORDS, "set filter attack rate" },
+    { "setDecay", (PyCFunction) NoiseFilter_setDecay, METH_VARARGS | METH_KEYWORDS, "set filter decay rate" },
     { NULL }  /* Sentinel */
 };
 
