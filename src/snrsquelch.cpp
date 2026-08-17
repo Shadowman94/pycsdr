@@ -31,7 +31,7 @@ static int SnrSquelch_init(SnrSquelch* self, PyObject* args, PyObject* kwds) {
 
     PyObject *format = nullptr;
     unsigned int length = 1024;
-    unsigned int fftSize = 256;
+    unsigned int fftSize = 1024;
     unsigned int hangLength = 0;
     unsigned int flushLength = 1024 * 5;
     unsigned int produceSilence = false;
