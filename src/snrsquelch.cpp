@@ -21,9 +21,9 @@ static void reportPower(SnrSquelch* self, float level) {
 
 static int SnrSquelch_init(SnrSquelch* self, PyObject* args, PyObject* kwds) {
     static char* kwlist[] = {
-        (char*) "format", (char*)"length", (char*)"fftSize",
+        (char*)"format", (char*)"length", (char*)"fftSize",
         (char*)"hangLength", (char*)"flushLength",
-        (char*) "reportInterval", (char*)"produceSilence", NULL
+        (char*)"reportInterval", (char*)"produceSilence", NULL
     };
 
     // default reporting interval
@@ -64,18 +64,18 @@ static int SnrSquelch_init(SnrSquelch* self, PyObject* args, PyObject* kwds) {
     return 0;
 }
 
-static PyObject* SnrSquelch_setSquelchLevel(SnrSquelch* self, PyObject* args, PyObject* kwds) {
-    static char* kwlist[] = {(char*) "level", NULL};
+static PyObject* SnrSquelch_setThreshold(SnrSquelch* self, PyObject* args, PyObject* kwds) {
+    static char* kwlist[] = {(char*) "threshold", NULL};
 
-    float level = 0.0f;
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "f", kwlist, &level)) {
+    float threshold = 0.0f;
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "f", kwlist, &threshold)) {
         return NULL;
     }
 
     if (self->inputFormat == FORMAT_COMPLEX_FLOAT) {
-        dynamic_cast<Csdr::SnrSquelch<Csdr::complex<float>>*>(self->module)->setSquelch(level);
+        dynamic_cast<Csdr::SnrSquelch<Csdr::complex<float>>*>(self->module)->setThreshold(threshold);
     } else if (self->inputFormat == FORMAT_FLOAT) {
-        dynamic_cast<Csdr::SnrSquelch<float>*>(self->module)->setSquelch(level);
+        dynamic_cast<Csdr::SnrSquelch<float>*>(self->module)->setThreshold(threshold);
     }
 
     Py_RETURN_NONE;
@@ -120,8 +120,8 @@ static PyObject* SnrSquelch_setReportInterval(SnrSquelch* self, PyObject* args, 
 }
 
 static PyMethodDef SnrSquelch_methods[] = {
-    {"setSquelchLevel", (PyCFunction) SnrSquelch_setSquelchLevel, METH_VARARGS | METH_KEYWORDS,
-     "set squelch level"
+    {"setThreshold", (PyCFunction) SnrSquelch_setThreshold, METH_VARARGS | METH_KEYWORDS,
+     "set squelch threshold in dB"
     },
     {"setPowerWriter", (PyCFunction) SnrSquelch_setPowerWriter, METH_VARARGS | METH_KEYWORDS,
      "set a writer that will receive power level readouts"
