@@ -54,8 +54,9 @@ static PyObject* NoiseFilter_setWndSize(NoiseFilter* self, PyObject* args, PyObj
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize);
     dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
+    self->noiseFilter->setAttackDecay(self->attack, self->decay);
     self->noiseFilter->setThreshold(self->threshold);
 
     Py_RETURN_NONE;
@@ -68,8 +69,9 @@ static PyObject* NoiseFilter_setFftSize(NoiseFilter* self, PyObject* args, PyObj
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize);
     dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
+    self->noiseFilter->setAttackDecay(self->attack, self->decay);
     self->noiseFilter->setThreshold(self->threshold);
 
     Py_RETURN_NONE;
@@ -82,9 +84,9 @@ static PyObject* NoiseFilter_setDecay(NoiseFilter* self, PyObject* args, PyObjec
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
-    dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
-    self->noiseFilter->setThreshold(self->threshold);
+    if (self->noiseFilter) {
+        self->noiseFilter->setAttackDecay(self->attack, self->decay);
+    }
 
     Py_RETURN_NONE;
 }
@@ -96,9 +98,9 @@ static PyObject* NoiseFilter_setAttack(NoiseFilter* self, PyObject* args, PyObje
         return NULL;
     }
 
-    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
-    dynamic_cast<Csdr::FilterModule<float>*>(self->module)->setFilter(self->noiseFilter);
-    self->noiseFilter->setThreshold(self->threshold);
+    if (self->noiseFilter) {
+        self->noiseFilter->setAttackDecay(self->attack, self->decay);
+    }
 
     Py_RETURN_NONE;
 }
