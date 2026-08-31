@@ -21,8 +21,9 @@ static int NoiseFilter_init(NoiseFilter* self, PyObject* args, PyObject* kwds) {
         return -1;
     }
 
-    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize, self->decay, self->attack);
+    self->noiseFilter = new Csdr::NoiseFilter<float>(self->fftSize, self->wndSize);
     self->setModule(new Csdr::FilterModule<float>(self->noiseFilter));
+    self->noiseFilter->setAttackDecay(self->attack, self->decay);
     self->noiseFilter->setThreshold(self->threshold);
 
     Py_INCREF(FORMAT_FLOAT);
