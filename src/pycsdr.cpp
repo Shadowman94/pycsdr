@@ -11,6 +11,7 @@
 #include "shift.hpp"
 #include "squelch.hpp"
 #include "fractionaldecimator.hpp"
+#include "fmstereo.hpp"
 #include "fmdemod.hpp"
 #include "limit.hpp"
 #include "nfmdeemphasis.hpp"
@@ -45,6 +46,7 @@
 #include "sstv.hpp"
 #include "fax.hpp"
 #include "afc.hpp"
+#include "fftafc.hpp"
 #include "sitorb.hpp"
 #include "ccir476.hpp"
 #include "dsc.hpp"
@@ -56,9 +58,14 @@
 
 static PyModuleDef pycsdrmodule = {
         PyModuleDef_HEAD_INIT,
-        .m_name = "pycsdr.modules",
-        .m_doc = "Python bindings for the csdr library",
-        .m_size = -1,
+        "pycsdr.modules",
+        "Python bindings for the csdr library",
+        -1,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
 };
 
 PyTypeObject* WriterType;
@@ -179,14 +186,14 @@ PyInit_modules(void) {
     Py_INCREF(ModuleType);
     bases = PyTuple_Pack(1, ModuleType);
     if (bases == NULL) return NULL;
-    PyObject* StereoFractionalDecimatorType = PyType_FromSpecWithBases(&StereoFractionalDecimatorSpec, bases);
-    if (StereoFractionalDecimatorType == NULL) return NULL;
+    PyObject* FmDemodType = PyType_FromSpecWithBases(&FmDemodSpec, bases);
+    if (FmDemodType == NULL) return NULL;
 
     Py_INCREF(ModuleType);
     bases = PyTuple_Pack(1, ModuleType);
     if (bases == NULL) return NULL;
-    PyObject* FmDemodType = PyType_FromSpecWithBases(&FmDemodSpec, bases);
-    if (FmDemodType == NULL) return NULL;
+    PyObject* StereoFractionalDecimatorType = PyType_FromSpecWithBases(&StereoFractionalDecimatorSpec, bases);
+    if (StereoFractionalDecimatorType == NULL) return NULL;
 
     Py_INCREF(ModuleType);
     bases = PyTuple_Pack(1, ModuleType);
@@ -359,6 +366,12 @@ PyInit_modules(void) {
     Py_INCREF(ModuleType);
     bases = PyTuple_Pack(1, ModuleType);
     if (bases == NULL) return NULL;
+    PyObject* FftAfcType = PyType_FromSpecWithBases(&FftAfcSpec, bases);
+    if (FftAfcType == NULL) return NULL;
+
+    Py_INCREF(ModuleType);
+    bases = PyTuple_Pack(1, ModuleType);
+    if (bases == NULL) return NULL;
     PyObject* SitorBDecoderType = PyType_FromSpecWithBases(&SitorBDecoderSpec, bases);
     if (SitorBDecoderType == NULL) return NULL;
 
@@ -492,6 +505,8 @@ PyInit_modules(void) {
     PyModule_AddObject(m, "NoiseFilter", NoiseFilterType);
 
     PyModule_AddObject(m, "Afc", AfcType);
+
+    PyModule_AddObject(m, "FftAfc", FftAfcType);
 
     PyModule_AddObject(m, "SitorBDecoder", SitorBDecoderType);
 

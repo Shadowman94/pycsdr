@@ -146,13 +146,13 @@ class FractionalDecimator(Module):
         ...
 
 
-class StereoFractionalDecimator(Module):
-    def __init__(self, format: Format, rateMPX: float, decimation: float, tau: float = 50e-6, numPolyPoints: int = 12, prefilter: bool = False):
+class FmDemod(Module):
+    def __init__(self):
         ...
 
 
-class FmDemod(Module):
-    def __init__(self):
+class StereoFractionalDecimator(Module):
+    def __init__(self, format: Format, rateMPX: float, decimation: float, tau: float = 50e-6, numPolyPoints: int = 12, prefilter: bool = False):
         ...
 
 
@@ -290,14 +290,20 @@ class SstvDecoder(Module):
         ...
 
 class NoiseFilter(Module):
-    def __init__(self, threshold: int, fftSize: int, wndSize: int):
+    def __init__(self, threshold: float = 0.0, fftSize: int = 1024, wndSize: int = 16, decay: float = 0.05, attack: float = 0.2):
         ...
 
-    def setThreshold(self, threshold: int) -> None:
+    def setThreshold(self, threshold: float) -> None:
         ...
 
     def setWndSize(self, wndSize: int) -> None:
         ...
 
     def setFftSize(self, fftSize: int) -> None:
+        ...
+
+    def setDecay(self, decay: float) -> None:
+        ...
+
+    def setAttack(self, attack: float) -> None:
         ...

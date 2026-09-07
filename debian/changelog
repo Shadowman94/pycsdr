@@ -1,3 +1,41 @@
+pycsdr (0.18.40) bullseye jammy; urgency=low
+
+  * Syncing versions with the latest CSDR.
+  * Added window to SNR implementation.
+  * Improved NoiseFilter and SNR implementation.
+  * SnrSquelch now takes threshold in decibels.
+
+ -- Marat Fayzullin <luarvique@gmail.com>  Wed, 2 Sep 2026 16:12:00 +0000
+
+pycsdr (0.18.39) bullseye jammy; urgency=low
+
+  * Syncing versions with the latest CSDR.
+  * Added PLL-based AFC implementation.
+  * Fixed decoding of Scottie SSTV modes.
+  * Increased default fftSize for Snr and SndSquelch.
+  * Switched to Hann window everywhere.
+  * Improved SNR implementation.
+
+ -- Marat Fayzullin <luarvique@gmail.com>  Mon, 24 Aug 2026 16:12:00 +0000
+
+pycsdr (0.18.38) bullseye jammy; urgency=low
+
+  * Syncing versions with the latest CSDR.
+  * Multiple improvements to AGC and noise reduction.
+  * Multiple improvements to FAX, SSTV, DSC decoders.
+  * Multiple improvements to CW decoder.
+
+ -- Marat Fayzullin <luarvique@gmail.com>  Mon, 17 Aug 2026 16:12:00 +0000
+
+pycsdr (0.18.37) bullseye jammy; urgency=low
+
+  * Syncing versions with the latest CSDR.
+  * Added stereo FM decoder by Csongor Dobre.
+  * Slowed AGC attack response to avoid clicking.
+  * Removed XZ requirement from packaging.
+
+ -- Marat Fayzullin <luarvique@gmail.com>  Mon, 2 Feb 2026 16:12:00 +0000
+
 pycsdr (0.18.36) bullseye jammy; urgency=low
 
   * Added produceSilence option to SnrSquelch.

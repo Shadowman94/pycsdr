@@ -24,7 +24,6 @@ PyType_Spec FmDemodSpec = {
     FmDemodSlots
 };
 
-
 static int BCFmDemod_init(BCFmDemod* self, PyObject* args, PyObject* kwds) {
     self->inputFormat = FORMAT_COMPLEX_FLOAT;
     self->outputFormat = FORMAT_FLOAT;

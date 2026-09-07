@@ -8,12 +8,12 @@
 #include "module.hpp"
 
 struct NoiseFilter: Module {
-    Csdr::AFNoiseFilter *noiseFilter = NULL;
-    int threshold = 0;
+    Csdr::NoiseFilter<float> *noiseFilter = NULL;
+    float threshold = 0.0f;
     uint32_t wndSize = 16;
     uint32_t fftSize = 1024;
-    uint32_t attack  = 2;
-    uint32_t decay   = 10;
+    float attack = 0.2f;
+    float decay = 0.05f;
 };
 
 extern PyType_Spec NoiseFilterSpec;
